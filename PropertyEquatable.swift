@@ -3,7 +3,7 @@ extension PropertyEquatable {
     // Do not use `==` because extension can NOT override methods,
     // and most NSObjects conforms to `Equatable` by implementing `==` simply compare their addresses.
     static func ~= (lhs: Self, rhs: Self) -> Bool {
-        func recursiveCompareElements(lhs: Any, rhs: Any) -> Bool {
+        func _recursiveCompareElements(lhs: Any, rhs: Any) -> Bool {
             guard type(of: lhs) == type(of: rhs) else { return false }
 
             let lMir = Mirror(reflecting: lhs)
@@ -23,7 +23,7 @@ extension PropertyEquatable {
                 // Arrays
                 if let lArr = lElm.value as? Array<PropertyEquatable>,
                     let rArr = rElm.value as? Array<PropertyEquatable> {
-                    return lArr.elementsEqual(rArr) { recursiveCompareElements(lhs: $0, rhs: $1) }
+                    return lArr.elementsEqual(rArr) { _recursiveCompareElements(lhs: $0, rhs: $1) }
                 }
 
                 // Sets Elements must be Hashable, we don't need to consider about this case.
@@ -34,7 +34,7 @@ extension PropertyEquatable {
                     guard lDic.count == rDic.count else { return false }
                     for key in lDic.keys {
                         guard let lVal = lDic[key], let rVal = rDic[key] else { return false }
-                        if !recursiveCompareElements(lhs: lVal, rhs: rVal) {
+                        if !_recursiveCompareElements(lhs: lVal, rhs: rVal) {
                             return false
                         }
                     }
@@ -48,10 +48,10 @@ extension PropertyEquatable {
                 }
 
                 // MARK: Classes, Structs and others that do not match the conditions above
-                return recursiveCompareElements(lhs: lElm.value, rhs: rElm.value)
+                return _recursiveCompareElements(lhs: lElm.value, rhs: rElm.value)
             }
         }
 
-        return recursiveCompareElements(lhs: lhs, rhs: rhs)
+        return _recursiveCompareElements(lhs: lhs, rhs: rhs)
     }
 }
