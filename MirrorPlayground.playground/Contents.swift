@@ -151,3 +151,23 @@ aTypeMirror.children.forEach { print($0) }
 /*
  */
 print(aTypeMirror.children.count) // 0
+
+print("\n------\n")
+
+// MARK: - optionals
+var aOptional: Int? = 1
+let aOptionalMirror = Mirror(reflecting: aOptional as Any)
+print(aOptionalMirror.displayStyle!) // optional
+aOptionalMirror.children.forEach { print($0) }
+/*
+ (label: Optional("some"), value: 1)
+ */
+aOptional = nil
+let aOptionalMirrorNil = Mirror(reflecting: aOptional as Any)
+print(aOptionalMirrorNil.displayStyle!) // optional
+aOptionalMirrorNil.children.forEach { print($0) }
+/*
+ */
+print(aOptionalMirrorNil.children.count) // 0
+
+print("\n------\n")
