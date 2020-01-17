@@ -135,9 +135,6 @@ let aEnumWithAssociatedValuesMirror = Mirror(reflecting: aEnumWithAssociatedValu
 print(aEnumWithAssociatedValuesMirror.displayStyle!) // enum
 aEnumWithAssociatedValuesMirror.children.forEach { print($0) }
 /*
- enum
- 0
- enum
  (label: Optional("third"), value: (title: "a", Value: 1, complete: nil))
  */
 
