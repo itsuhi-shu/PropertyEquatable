@@ -31,6 +31,7 @@ aObjectMirror.children.forEach { print($0) }
 /*
  (label: Optional("storedPropertyStr"), value: "a")
  (label: Optional("storedPropertyInt"), value: 1)
+ (label: Optional("storedObject"), value: __lldb_expr_161.BClass)
 */
 print(aObjectMirror.descendant("storedObject", "name")!) // b
 
